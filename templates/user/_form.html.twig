@@ -7,6 +7,9 @@
     <label>Password</label>
     {{  form_widget(form.password, {attr: {'class': 'form-control'}}) }}
 </div>
-<button class="btn">{{ button_label|default('Save', {attr: {'class': 'btn-primary'} }) }}</button>
+<div class="form-group">
+    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+</div>
+
 
 {{ form_end(form) }}
