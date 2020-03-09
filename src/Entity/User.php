@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"email"}, message="An user with this email address already exists")
  */
 class User implements UserInterface
 {
@@ -33,9 +35,6 @@ class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $plainPassword;
 
     public function getId(): ?int
@@ -116,15 +115,7 @@ class User implements UserInterface
         $this->plainPassword = null;
     }
 
-    public function getPlainPassword(): ?string
-    {
+    public function getPlainPassword() {
         return $this->plainPassword;
-    }
-
-    public function setPlainPassword(?string $plainPassword): self
-    {
-        $this->plainPassword = $plainPassword;
-
-        return $this;
     }
 }

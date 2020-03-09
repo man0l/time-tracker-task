@@ -24,12 +24,12 @@ class UserType extends AbstractType
             ->add('email', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
-                    new UniqueEntity(['fields' =>  ['email'] ]),
                     new Email()
 
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [
+                'mapped' => false,
                 'type' => PasswordType::class,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
