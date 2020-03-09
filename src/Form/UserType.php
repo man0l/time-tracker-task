@@ -24,7 +24,7 @@ class UserType extends AbstractType
             ->add('email', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
-                    new UniqueEntity(['fields' => 'email']),
+                    new UniqueEntity(['fields' =>  ['email'] ]),
                     new Email()
 
                 ]
