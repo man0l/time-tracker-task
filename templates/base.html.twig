@@ -9,7 +9,16 @@
 </head>
 <body>
 <div class="container">
-    <header><h1>Time Tracker</h1></header>
+
+    <header>
+        <div class="logo float-left"><h1><a href="{{ path('home') }}">Time Tracker</a></h1></div>
+        <div class="login float-right">
+            {% if not app.user %}
+                <a href="{{ path('app_login') }}">Login</a>
+            {%  else  %}Hello {{ app.user.username }} | <a href="{{  path('app_logout') }}">Logout</a>
+            {%  endif %}
+        </div>
+    </header>
     <div class="row">
         <div class="col-md-12 inner-content">
             {% block body %}{% endblock %}
