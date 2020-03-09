@@ -15,7 +15,10 @@
         <div class="login float-right">
             {% if not app.user %}
                 <a href="{{ path('app_login') }}">Login</a>
-            {%  else  %}Hello {{ app.user.username }} | <a href="{{  path('app_logout') }}">Logout</a>
+            {%  else  %}Hello {{ app.user.username }} |
+                {% if is_granted('ROLE_ADMIN') %}<a href="">Create Employee record</a> |{% endif %}
+                {% if is_granted('ROLE_USER')  %}<a href="">Log working time</a> |{%  endif %}
+                <a href="{{  path('app_logout') }}">Logout</a>
             {%  endif %}
         </div>
     </header>
