@@ -9,7 +9,7 @@ parameters:
     overtime_weekday_rate: 5
     # if the employee have been working during the weekends, the rate is weekday_base_rate + overtime_weekend_rate = €18
     overtime_weekend_rate: 8
-services:+
+services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
