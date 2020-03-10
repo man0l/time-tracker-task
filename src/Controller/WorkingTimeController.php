@@ -36,6 +36,7 @@ class WorkingTimeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $workingTime->setUser($this->getUser());
             $entityManager->persist($workingTime);
             $entityManager->flush();
 
