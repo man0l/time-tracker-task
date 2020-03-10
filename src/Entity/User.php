@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -36,6 +38,16 @@ class User implements UserInterface
     private $password;
 
     private $plainPassword;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\WorkingTime", mappedBy="user", orphanRemoval=true)
+     */
+    private $workingTimes;
+
+    public function __construct()
+    {
+        $this->workingTimes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -117,5 +129,36 @@ class User implements UserInterface
 
     public function getPlainPassword() {
         return $this->plainPassword;
+    }
+
+    /**
+     * @return Collection|WorkingTime[]
+     */
+    public function getWorkingTimes(): Collection
+    {
+        return $this->workingTimes;
+    }
+
+    public function addWorkingTime(WorkingTime $workingTime): self
+    {
+        if (!$this->workingTimes->contains($workingTime)) {
+            $this->workingTimes[] = $workingTime;
+            $workingTime->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkingTime(WorkingTime $workingTime): self
+    {
+        if ($this->workingTimes->contains($workingTime)) {
+            $this->workingTimes->removeElement($workingTime);
+            // set the owning side to null (unless already changed)
+            if ($workingTime->getUser() === $this) {
+                $workingTime->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
