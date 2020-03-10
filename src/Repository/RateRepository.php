@@ -23,11 +23,11 @@ class RateRepository extends ServiceEntityRepository
 
         $qb = $this->createQueryBuilder('r');
         $qb->where($qb->expr()->andX(
-           $qb->expr()->gt('r.from_hours', $hours),
-           $qb->expr()->lte('r.to_hours', $hours),
+           $qb->expr()->lt('r.from_hours', $hours),
+           $qb->expr()->gte('r.to_hours', $hours),
             $qb->expr()->eq('r.weekday', $weekday)
         ));
-
+        $qb->addOrderBy('r.rate', 'ASC');
         return $qb->getQuery()->getResult();
     }
     // /**

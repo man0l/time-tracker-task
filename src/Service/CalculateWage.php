@@ -19,12 +19,22 @@ class CalculateWage
         $rates = $this->repository->findRate($hours, $this->isWeekday($date));
 
         $wage = 0;
-        // take the highest rate
+
+        if(count($rates) === 0) {
+            return $wage;
+        }
+        // take the highest rate, the rates are sorted ascending
         /** @var Rate $rate */
         foreach($rates as $rate) {
-            if($wage < $rate * $hours) {
-                $wage = $rate * $hours;
-            }
+            $wage += $rate->getRate() * $hours;
+            $hours -= $rate->getToHours();
+        }
+
+        if($hours > 0 && isset($rates[0])) {
+            // if any hours left, use the default rate, which is the first rate = $rate[0]
+            /** @var Rate $rate */
+            $rate = $rates[0];
+            $wage += $hours * $rate->getRate();
         }
 
         return (float)$wage;
@@ -35,3 +45,4 @@ class CalculateWage
         return $dayOfTheWeek < 6;
     }
 }
+
