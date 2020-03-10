@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\PositiveOrZero;
+use Symfony\Component\Validator\Constraints\Range;
 
 class RateType extends AbstractType
 {
@@ -20,11 +21,13 @@ class RateType extends AbstractType
         $builder
             ->add('from_hours', NumberType::class, ['constraints' => [
                 new NotBlank(),
-                new PositiveOrZero()
+                new PositiveOrZero(),
+                new Range(['min' => 0, 'max' => 12])
             ]])
             ->add('to_hours',NumberType::class, ['constraints' => [
                 new NotBlank(),
-                new PositiveOrZero()
+                new PositiveOrZero(),
+                new Range(['min' => 0, 'max' => 12])
             ]])
             ->add('rate', NumberType::class, ['constraints' => [
                 new NotBlank(),
