@@ -4,8 +4,12 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-
-services:
+    # additional rate in euro, if thet base rate is €10, and the user has 2 hours overtime, he will get €24
+    weekday_base_rate: 10
+    overtime_weekday_rate: 5
+    # if the employee have been working during the weekends, the rate is weekday_base_rate + overtime_weekend_rate = €18
+    overtime_weekend_rate: 8
+services:+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
