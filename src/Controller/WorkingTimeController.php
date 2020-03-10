@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\WorkingTime;
 use App\Form\WorkingTimeType;
 use App\Repository\WorkingTimeRepository;
+use App\Service\CalculateWage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class WorkingTimeController extends AbstractController
     /**
      * @Route("/new", name="working_time_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CalculateWage $calculateWage): Response
     {
         $workingTime = new WorkingTime();
         $form = $this->createForm(WorkingTimeType::class, $workingTime);
@@ -37,6 +38,7 @@ class WorkingTimeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $workingTime->setUser($this->getUser());
+            $workingTime->setWagePerDay($calculateWage->calculate($workingTime->getDayAt(), $workingTime->getHours()));
             $entityManager->persist($workingTime);
             $entityManager->flush();
 
@@ -62,13 +64,18 @@ class WorkingTimeController extends AbstractController
     /**
      * @Route("/{id}/edit", name="working_time_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, WorkingTime $workingTime): Response
+    public function edit(Request $request, WorkingTime $workingTime, CalculateWage $calculateWage): Response
     {
         $form = $this->createForm(WorkingTimeType::class, $workingTime);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $workingTime->setWagePerDay($calculateWage->calculate($workingTime->getDayAt(), $workingTime->getHours()));
+
+            $entityManager->persist($workingTime);
+            $entityManager->flush();
 
             return $this->redirectToRoute('working_time_index');
         }

@@ -23,9 +23,9 @@ class RateRepository extends ServiceEntityRepository
 
         $qb = $this->createQueryBuilder('r');
         $qb->where($qb->expr()->andX(
-           $qb->expr()->gt('from_hours', $hours),
-           $qb->expr()->lte('to_hours', $hours),
-            $qb->expr()->eq('weekday', $weekday)
+           $qb->expr()->gt('r.from_hours', $hours),
+           $qb->expr()->lte('r.to_hours', $hours),
+            $qb->expr()->eq('r.weekday', $weekday)
         ));
 
         return $qb->getQuery()->getResult();
