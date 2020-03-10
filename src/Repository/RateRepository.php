@@ -19,6 +19,17 @@ class RateRepository extends ServiceEntityRepository
         parent::__construct($registry, Rate::class);
     }
 
+    public function findRate(int $hours, $weekday = true) {
+
+        $qb = $this->createQueryBuilder('r');
+        $qb->where($qb->expr()->andX(
+           $qb->expr()->gt('from_hours', $hours),
+           $qb->expr()->lte('to_hours', $hours),
+            $qb->expr()->eq('weekday', $weekday)
+        ));
+
+        return $qb->getQuery()->getResult();
+    }
     // /**
     //  * @return Rate[] Returns an array of Rate objects
     //  */
