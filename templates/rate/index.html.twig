@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>From_hours</th>
                 <th>To_hours</th>
+                <th>Rate</th>
                 <th>Weekday</th>
                 <th>actions</th>
             </tr>
@@ -21,9 +22,9 @@
                 <td>{{ rate.id }}</td>
                 <td>{{ rate.fromHours }}</td>
                 <td>{{ rate.toHours }}</td>
+                <td>{{ rate.rate }}</td>
                 <td>{{ rate.weekday ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('rate_show', {'id': rate.id}) }}">show</a>
                     <a href="{{ path('rate_edit', {'id': rate.id}) }}">edit</a>
                 </td>
             </tr>
