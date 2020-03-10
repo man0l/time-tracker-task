@@ -29,12 +29,17 @@ class Rate
     /**
      * @ORM\Column(type="boolean")
      */
-    private $weekday;
+    private $weekday = false;
 
     /**
      * @ORM\Column(type="float")
      */
     private $rate;
+
+    public function __construct()
+    {
+        $this->weekday = false;
+    }
 
     public function getId(): ?int
     {
@@ -67,12 +72,12 @@ class Rate
 
     public function getWeekday(): ?string
     {
-        return $this->weekday;
+        return (bool)$this->weekday;
     }
 
     public function setWeekday(string $weekday): self
     {
-        $this->weekday = $weekday;
+        $this->weekday = (bool)$weekday;
 
         return $this;
     }

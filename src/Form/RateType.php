@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Rate;
+use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -28,8 +30,17 @@ class RateType extends AbstractType
                 new NotBlank(),
                 new PositiveOrZero()
             ]])
-            ->add('weekday')
+            ->add('weekday', CheckboxType::class, [
+                'required' => false
+            ])
         ;
+
+        $builder->get('weekday')
+                ->addModelTransformer(new CallbackTransformer(function($weekdayIntToBoolean) {
+                    return (bool)$weekdayIntToBoolean;
+                }, function($weekdayBooleanToInt) {
+                    return (int)$weekdayBooleanToInt;
+                }));
     }
 
     public function configureOptions(OptionsResolver $resolver)

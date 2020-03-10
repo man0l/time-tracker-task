@@ -63,6 +63,7 @@ class RateController extends AbstractController
      */
     public function edit(Request $request, Rate $rate): Response
     {
+
         $form = $this->createForm(RateType::class, $rate);
         $form->handleRequest($request);
 
