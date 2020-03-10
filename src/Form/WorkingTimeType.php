@@ -14,7 +14,7 @@ class WorkingTimeType extends AbstractType
         $builder
             ->add('day_at')
             ->add('hours')
-            ->add('user')
+
         ;
     }
 

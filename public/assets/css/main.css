@@ -5,3 +5,7 @@
 header {
     height: 100px;
 }
+
+#working_time_day_at_date {
+    float: left;
+}
