@@ -32,6 +32,11 @@ class WorkingTime
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $wagePerDay;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class WorkingTime
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getWagePerDay(): ?float
+    {
+        return $this->wagePerDay;
+    }
+
+    public function setWagePerDay(float $wagePerDay): self
+    {
+        $this->wagePerDay = $wagePerDay;
 
         return $this;
     }
