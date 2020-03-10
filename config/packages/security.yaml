@@ -36,4 +36,6 @@ security:
     access_control:
         - { path: ^/employee, roles: ROLE_ADMIN }
         - { path: ^/rate, roles: ROLE_ADMIN }
+        - { path: ^/working, roles: ROLE_USER }
+
         #- { path: ^/profile, roles: ROLE_USER }
