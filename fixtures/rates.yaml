@@ -1,0 +1,16 @@
+App\Entity\Rate:
+  rate_1:
+    from_hours: 0
+    to_hours: 8
+    rate: 10.0
+    weekday: true
+  rate_2:
+    from_hours: 8
+    to_hours: 10
+    rate: 13.0
+    weekday: true
+  rate_3:
+    from_hours: 0
+    to_hours: 3
+    rate: 18.0
+    weekday: false
