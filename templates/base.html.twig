@@ -17,7 +17,8 @@
                 <a href="{{ path('app_login') }}">Login</a>
             {%  else  %}Hello {{ app.user.username }} |
                 {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('user_index') }}">Create Employee record</a> |{% endif %}
-                {% if is_granted('ROLE_USER')  %}<a href="">Log working time</a> |{%  endif %}
+                {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('rate_index') }}">Create rate</a> |{% endif %}
+                {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}<a href="">Log working time</a> |{%  endif %}
                 <a href="{{  path('app_logout') }}">Logout</a>
             {%  endif %}
         </div>
