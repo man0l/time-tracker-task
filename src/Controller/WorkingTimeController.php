@@ -24,7 +24,7 @@ class WorkingTimeController extends AbstractController
         return $this->render('working_time/index.html.twig', [
 
             'working_times' =>
-                $this->getUser()->hasRole('ROLE_ADMIN') ?
+                !$this->getUser()->hasRole('ROLE_ADMIN') ?
                     $workingTimeRepository->findBy(['user' => $this->getUser()]) :
                     $workingTimeRepository->findAll(),
         ]);
