@@ -39,10 +39,19 @@ class CalculateWageTest extends WebTestCase
     public function testCalculate10HoursWeekday()
     {
 
-        $wage  = $this->wageCalc->calculate(new \DateTime('2020-03-08 00:00:00'), 10);
+        $wage  = $this->wageCalc->calculate(new \DateTime('2020-03-11 00:00:00'), 10);
 
         $this->assertEquals(106, $wage);
     }
+
+    public function testCalculate5HoursWeekend()
+    {
+
+        $wage  = $this->wageCalc->calculate(new \DateTime('2020-03-08 00:00:00'), 10);
+
+        $this->assertEquals(72, $wage);
+    }
+
 
 
 }
