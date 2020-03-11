@@ -9,12 +9,16 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
+    <h1>Time Tracker</h1>
+    <p>What would you like to start with?</p>
     <ul>
-        <li>Your controller at <code><a href="{{ 'C:/projects/time-tracker-task/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/projects/time-tracker-task/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
+        {% if is_granted('ROLE_ADMIN') %}<li> <a href="{{ path('user_index') }}">Create Employee record</a>  </li>{% endif %}
+            {% if is_granted('ROLE_ADMIN') %<li><a href="{{ path('rate_index') }}">Create rate</a> </li> {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}<li><a href="{{ path('working_time_index') }}">View working time</a></li> {% endif %}
+            {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('working_time_index') }}">Log working time</a></li>
+             {%  endif %}
     </ul>
+
 </div>
 {% endblock %}
