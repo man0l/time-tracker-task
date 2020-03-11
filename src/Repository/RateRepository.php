@@ -22,10 +22,11 @@ class RateRepository extends ServiceEntityRepository
     public function findRate($weekday = true) {
 
         $qb = $this->createQueryBuilder('r');
-        $qb->where($qb->expr()->andX(
-            $qb->expr()->eq('r.weekday', $weekday)
-        ));
+        $qb->where(
+            $qb->expr()->eq('r.weekday', ':weekday')
+         );
         $qb->addOrderBy('r.rate', 'ASC');
+        $qb->setParameter('weekday', $weekday);
         return $qb->getQuery()->getResult();
     }
     // /**
