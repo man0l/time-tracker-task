@@ -22,7 +22,11 @@ class WorkingTimeController extends AbstractController
     public function index(WorkingTimeRepository $workingTimeRepository): Response
     {
         return $this->render('working_time/index.html.twig', [
-            'working_times' => $workingTimeRepository->findAll(),
+
+            'working_times' =>
+                $this->getUser()->hasRole('ROLE_ADMIN') ?
+                    $workingTimeRepository->findBy(['user' => $this->getUser()]) :
+                    $workingTimeRepository->findAll(),
         ]);
     }
 

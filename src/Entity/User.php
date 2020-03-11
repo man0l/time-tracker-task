@@ -166,4 +166,14 @@ class User implements UserInterface
     {
         return $this->email;
     }
+
+    public function hasRole($searchRole) {
+        foreach($this->roles as $role) {
+            if(strpos($role, $searchRole) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -11,6 +11,9 @@
                 <th>Id</th>
                 <th>Day_at</th>
                 <th>Hours</th>
+                {%  if is_granted('ROLE_ADMIN') %}
+                <th>User</th>
+                {% endif %}
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +23,9 @@
                 <td>{{ working_time.id }}</td>
                 <td>{{ working_time.dayAt ? working_time.dayAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ working_time.hours }}</td>
+                {%  if is_granted('ROLE_ADMIN') %}
+                    <td>{{ working_time.user }}</td>
+                {% endif %}
                 <td>
                     <a href="{{ path('working_time_show', {'id': working_time.id}) }}">show</a>
                     <a href="{{ path('working_time_edit', {'id': working_time.id}) }}">edit</a>
