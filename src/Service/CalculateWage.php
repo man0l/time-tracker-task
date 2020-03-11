@@ -16,7 +16,7 @@ class CalculateWage
 
     function calculate(\DateTime $date, int $hours) {
 
-        $rates = $this->repository->findRate($hours, $this->isWeekday($date));
+        $rates = $this->repository->findRate($this->isWeekday($date));
 
         $wage = 0;
 
