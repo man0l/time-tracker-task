@@ -23,18 +23,24 @@ class CalculateWage
         if(count($rates) === 0) {
             return $wage;
         }
-        // take the highest rate, the rates are sorted ascending
+
         /** @var Rate $rate */
         foreach($rates as $rate) {
-            $wage += $rate->getRate() * $hours;
-            $hours -= $rate->getToHours();
+            $diff = $rate->getToHours() - $rate->getFromHours();
+
+            if($hours > $diff) {
+              $wage += $diff * $rate->getRate();
+            } else if($hours > 0) {
+                $wage += $hours * $rate->getRate();
+            } else {
+                break;
+            }
+
+            $hours -= $diff;
         }
 
-        if($hours > 0 && isset($rates[0])) {
-            // if any hours left, use the default rate, which is the first rate = $rate[0]
-            /** @var Rate $rate */
-            $rate = $rates[0];
-            $wage += $hours * $rate->getRate();
+        if($hours>0) {
+            $wage += $rate->getRate();
         }
 
         return (float)$wage;
